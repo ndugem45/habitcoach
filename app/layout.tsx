@@ -16,8 +16,8 @@ export const metadata: Metadata = {
   keywords: ["habits", "productivity", "tracking", "goals", "pwa"],
   authors: [{ name: "HabitCoach Team" }],
   icons: [
-    { rel: "apple-touch-icon", url: "/apple-touch-icon.png" },
-    { rel: "icon", url: "/favicon.ico" },
+    { rel: "apple-touch-icon", url: "/icons/apple-touch-icon.png" },
+    { rel: "icon", url: "/icons/favicon.ico" },
   ],
 }
 

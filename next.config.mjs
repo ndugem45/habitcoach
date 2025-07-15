@@ -1,3 +1,11 @@
+import { createRequire } from 'node:module';
+const require = createRequire(import.meta.url);
+const withPWA = require('next-pwa')({
+  dest: 'public',
+  register: true,
+  skipWaiting: true,
+});
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   eslint: {
@@ -12,8 +20,6 @@ const nextConfig = {
   experimental: {
     optimizePackageImports: ['lucide-react'],
   },
-  // PWA configuration would go here in a real app
-  // You would typically use next-pwa plugin
-}
+};
 
-export default nextConfig
+export default withPWA(nextConfig);
