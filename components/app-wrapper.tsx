@@ -18,31 +18,36 @@ export function AppWrapper({ children }: AppWrapperProps) {
     const hasLoadedBefore = sessionStorage.getItem("habitcoach-loaded")
 
     if (hasLoadedBefore) {
-      // Not first load, don't show splash
       setShowSplash(false)
       setIsFirstLoad(false)
     } else {
-      // First load, show splash and mark as loaded
       sessionStorage.setItem("habitcoach-loaded", "true")
 
-      const timer = setTimeout(() => {
+      // Wait for the window to fully load (all resources, images, etc.)
+      const handleLoad = () => {
         setShowSplash(false)
-      }, 2500) // Show splash for 2.5 seconds
+      }
 
-      return () => clearTimeout(timer)
+      if (document.readyState === "complete") {
+        // Already loaded
+        setShowSplash(false)
+      } else {
+        window.addEventListener("load", handleLoad)
+      }
+
+      return () => {
+        window.removeEventListener("load", handleLoad)
+      }
     }
   }, [])
 
-  // If it's not the first load, render children immediately
   if (!isFirstLoad) {
     return <>{children}</>
   }
 
-  // If it's the first load and splash should be shown
   if (showSplash) {
     return <SplashScreen />
   }
 
-  // First load but splash is done
   return <>{children}</>
 }
